@@ -18,8 +18,9 @@
       };
       emacsWithOverrides = emacs.overrideAttrs (oldAttrs: rec {
         name = "emacs-${version}";
-        version = "20230320.${substring 0 7 rev}";
-        rev = "786de66ec3c4cff90cafd0f8a68f9bce027e9947"; # 2023-03-20T09:17:47-05:00
+        version = "20230515.${substring 0 7 rev}";
+        rev = "b5bfd808c6b40f47fdef8eb9986bc3127ca63c12"; # 2023-05-15T21:22:59+02:00
+
 
         src = pkgs.fetchFromGitHub {
           inherit rev;
