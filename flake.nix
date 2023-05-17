@@ -16,9 +16,7 @@
         withTreeSitter = true;
         withImageMagick = false;
       };
-    in
-    {
-      packages.${system}.default = emacs.overrideAttrs (oldAttrs: rec {
+      emacsWithOverrides = emacs.overrideAttrs (oldAttrs: rec {
         name = "emacs-${version}";
         version = "20230320.${substring 0 7 rev}";
         rev = "786de66ec3c4cff90cafd0f8a68f9bce027e9947"; # 2023-03-20T09:17:47-05:00
@@ -30,5 +28,10 @@
           hash = "sha256-mcpHmOU4VvjKqlQeL/4/awyaPn7MLuHe+5fbhejXqNQ=";
         };
       });
+      emacsWithPackages = (pkgs.emacsPackagesFor emacsWithOverrides).emacsWithPackages;
+    in
+    {
+      packages.${system}.default = emacsWithPackages
+        (epkgs: [ epkgs.vterm epkgs.pdf-tools ]);
     };
 }
